@@ -94,11 +94,11 @@ def _apns_prepare(
 		"badge": badge,
 		"sound": sound,
 		"category": category,
-		"url_args": url_args,
+		"url-args": url_args,
 		"custom": extra,
-		"thread_id": thread_id,
-		"content_available": content_available,
-		"mutable_content": mutable_content,
+		"thread-id": thread_id,
+		"content-available": content_available,
+		"mutable-content": mutable_content,
 	}
 
 
