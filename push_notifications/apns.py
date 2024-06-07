@@ -89,7 +89,7 @@ def _apns_prepare(
 	if callable(badge):
 		badge = badge(token)
 
-	return {
+	payload = {
 		"alert": alert_payload,
 		"badge": badge,
 		"sound": sound,
@@ -100,6 +100,8 @@ def _apns_prepare(
 		"content-available": content_available,
 		"mutable-content": mutable_content,
 	}
+
+	return {key: val for key, val in payload.items() if val is not None}
 
 
 @async_to_sync
