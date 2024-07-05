@@ -38,6 +38,10 @@ def _apns_create_client(application_id=None):
 	key_id = None
 	team_id = None
 
+	async def custom_error_fn(request, response):
+		# Supresses notification errores
+		return
+
 	if not get_manager().has_auth_token_creds(application_id):
 		cert = get_manager().get_apns_certificate(application_id)
 		with _apns_path_for_cert(cert) as cert_path:
@@ -46,6 +50,7 @@ def _apns_create_client(application_id=None):
 				team_id=team_id,
 				topic=get_manager().get_apns_topic(application_id),
 				use_sandbox=get_manager().get_apns_use_sandbox(application_id),
+				err_func=custom_error_fn,
 			)
 	else:
 		key_path, key_id, team_id = get_manager().get_apns_auth_creds(application_id)
@@ -55,6 +60,7 @@ def _apns_create_client(application_id=None):
 			team_id=team_id,
 			topic=get_manager().get_apns_topic(application_id),
 			use_sandbox=get_manager().get_apns_use_sandbox(application_id),
+			err_func=custom_error_fn,
 		)
 
 	return client
